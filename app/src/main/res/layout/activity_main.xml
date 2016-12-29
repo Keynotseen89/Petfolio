@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.kench.petfolio.MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Petfolio"
+        android:textSize="34sp"/>\
+
+    <TextView
+        android:id="@+id/pet_name_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Gypsy"
+        android:textSize="24sp"/>
+
+    <ImageView
+        android:id="@+id/pet_image_id"
+        android:layout_width="wrap_content"
+        android:layout_height="207dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/adorable" />
+
+    <TextView
+        android:id="@+id/scrapbook_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scrapbook"
+        android:layout_gravity="center"
+        android:textSize="20sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Medical History"
+        android:id="@+id/medical_history_id"
+        android:layout_gravity="center"
+        android:textSize="20sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pet information"
+        android:layout_gravity="center"
+        android:id="@+id/pet_info_id"
+        android:textSize="20sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="about app"
+        android:id="@+id/about_app_id"
+        android:textSize="20sp"/>
+</LinearLayout>
