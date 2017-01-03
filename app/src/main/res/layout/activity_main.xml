@@ -24,24 +24,46 @@
             android:text="@string/app_name"
             android:textSize="34sp" />
 
-        <TextView
-            android:id="@+id/pet_name_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/pets_name"
-            android:textSize="24sp" />
+        <ViewSwitcher
+            android:id="@+id/my_switcher"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/pet_image_id"
-            android:layout_width="fill_parent"
-            android:layout_height="207dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:layout_marginTop="10dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/adorable" />
+
+            <TextView
+                android:id="@+id/pet_name_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/pets_name"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/hidden_edit_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Edit Name"
+                android:inputType="text"/>
+
+        </ViewSwitcher>
+
+        <FrameLayout
+            android:id="@+id/pet_frame_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/pet_image_id"
+                android:layout_width="fill_parent"
+                android:layout_height="207dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
+                android:layout_marginTop="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/adorable" />
+        </FrameLayout>
 
 
         <TextView

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Petfolio</string>
-    <string name="pets_name">Gypsy</string>
+    <string name="pets_name">Pet Name</string>
     <string name="scrap_book">Scrapbook</string>
     <string name="med_history">Medical History</string>
     <string name="pet_info">Pet information</string>
