@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Petfolio</string>
     <string name="pets_name">Pet Name</string>
+    <string name="edit_name">Edit Name</string>
+    <string name="edit_button">Edit</string>
+    <string name="profile_image">Pets Photo</string>
     <string name="scrap_book">Scrapbook</string>
     <string name="med_history">Medical History</string>
     <string name="pet_info">Pet information</string>
