@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         petNameView.setText(myEditText.getText());
 
 
-    }
+    }//end of editPetName code
 
     private void openGallery() {
         //used to access gallery from phone through external_content
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 //        gallery.putExtra("outputX", 200);
 //        gallery.putExtra("return-data", true);
         startActivityForResult(gallery, PICK_IMAGE);
-    }
+    }//end of openGallery code
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -114,10 +114,19 @@ public class MainActivity extends AppCompatActivity {
 //            Bundle extras = data.getExtras();
 //            imageBit = extras.getParcelable("data");
 //            imageView.setImageBitmap(imageBit);
-
-
         }
-    }
+    }//end of ActivityResult code
 
+    //Opens MedHistoryActivity window in UI
+    public void openMedHistory(View view) {
+        Intent i = new Intent(this, MedHistoryActivity.class);
+        startActivity(i);
+    }//end of medHistory code
+
+    //Opend PetInfoActivity window in UI
+    public void openPetInfo(View view) {
+        Intent openPetInfo = new Intent(this, PetInfoActivity.class);
+        startActivity(openPetInfo);
+    }
 
 }//End of code
