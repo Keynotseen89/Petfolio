@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     Uri imageUri;               //used to receive image as URI
     Bitmap imageBit;
     Bitmap bitmap2;
+    int imageHeight;
+    int imageWidth;
+    String imageType;
     FrameLayout frameLayout;
     ByteArrayOutputStream bytearrayoutputstream;
     byte[] BYTE;
@@ -93,8 +96,11 @@ public class MainActivity extends AppCompatActivity {
 //        gallery.putExtra("outputY", 200);
 //        gallery.putExtra("outputX", 200);
 //        gallery.putExtra("return-data", true);
+
         startActivityForResult(gallery, PICK_IMAGE);
     }//end of openGallery code
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -103,11 +109,12 @@ public class MainActivity extends AppCompatActivity {
 
 
             imageUri = data.getData();
-
             //  Bitmap bitmap = BitmapFactory.decodeFile("data");
             //imageView.setImageBitmap(BitmapFactory.decodeFile("data"));
             //imageView.setScaleType(FIT_CENTER);
+
             imageView.setImageURI(imageUri);
+
             frameLayout.setBackgroundColor(Color.TRANSPARENT);
 
 //
