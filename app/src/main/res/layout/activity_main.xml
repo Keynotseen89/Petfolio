@@ -111,6 +111,7 @@
             android:layout_marginTop="10dp"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
+            android:onClick="openAboutApp"
             android:text="@string/about_selection"
             android:textSize="20sp" />
 
