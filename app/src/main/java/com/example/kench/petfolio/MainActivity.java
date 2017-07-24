@@ -136,4 +136,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(openPetInfo);
     }
 
+    public void openAboutApp(View view){
+        Intent openAboutApp = new Intent(this, AboutAppActivity.class);
+        startActivity(openAboutApp);
+    }
+
 }//End of code
