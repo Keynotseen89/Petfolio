@@ -8,8 +8,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/vac_log_id"
@@ -23,9 +23,11 @@
             android:id="@+id/second_row_id"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/vac_log_id">
+            android:layout_below="@id/vac_log_id"
+            android:shrinkColumns="1,2,3">
 
             <TableRow
+                android:id="@+id/vac_table_header_row"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -33,10 +35,40 @@
                     android:id="@+id/date_adm_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Date Administered"
+                    android:text="Date\nAdministered"
                     android:textStyle="normal|bold" />
 
-                <ViewSwitcher
+                <TextView
+                    android:id="@+id/vac_info_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:text="Vaccine Info\n(Brand/Serial#)"
+                    android:textSize="14sp"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:id="@+id/tag_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tag #"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:id="@+id/date_re_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date to be \nRevaccinated "
+                    android:textStyle="normal|bold" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/table_vac_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextSwitcher
                     android:id="@+id/switch_date_adm"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -52,25 +84,9 @@
                         android:layout_height="wrap_content"
                         android:hint="Enter Date"
                         android:inputType="date" />
+                </TextSwitcher>
 
-                </ViewSwitcher>
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/vac_info_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:text="Vaccine Info(Brand/Serial #)"
-                    android:textSize="14sp"
-                    android:textStyle="normal|bold" />
-
-                <ViewSwitcher
+                <TextSwitcher
                     android:id="@+id/switch_vac_info"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -78,7 +94,9 @@
                     <TextView
                         android:id="@+id/vac_info_text"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="0sp"
+                        android:paddingRight="0sp" />
 
                     <EditText
                         android:id="@+id/edit_vac_info"
@@ -87,22 +105,9 @@
                         android:ems="10"
                         android:inputType="textPersonName"
                         android:text="Name" />
-                </ViewSwitcher>
+                </TextSwitcher>
 
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/tag_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tag #"
-                    android:textStyle="normal|bold" />
-
-                <ViewSwitcher
+                <TextSwitcher
                     android:id="@+id/switch_tag"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -118,22 +123,9 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="numberSigned" />
-                </ViewSwitcher>
+                </TextSwitcher>
 
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/date_re_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Date to be Revaccinated "
-                    android:textStyle="normal|bold" />
-
-                <ViewSwitcher
+                <TextSwitcher
                     android:id="@+id/switch_date_re"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -149,19 +141,11 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="date" />
-                </ViewSwitcher>
+                </TextSwitcher>
 
             </TableRow>
-        </TableLayout>
 
-        <Button
-            android:id="@+id/button_edit_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:text="@string/edit_button" />
+        </TableLayout>
 
         <TextView
             android:id="@+id/med_header"
@@ -176,7 +160,8 @@
             android:id="@+id/med_table"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/med_header">
+            android:layout_below="@id/med_header"
+            android:shrinkColumns="0,1,2">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -189,7 +174,27 @@
                     android:text="Date"
                     android:textStyle="normal|bold" />
 
-                <ViewSwitcher
+                <TextView
+                    android:id="@+id/med_medication_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medications"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:id="@+id/dos_instruction_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dosage Instructions"
+                    android:textStyle="normal|bold" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextSwitcher
                     android:id="@+id/switch_date_med"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -205,22 +210,9 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="date" />
-                </ViewSwitcher>
+                </TextSwitcher>
 
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/med_medication_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Medications"
-                    android:textStyle="normal|bold" />
-
-                <ViewSwitcher
+                <TextSwitcher
                     android:id="@+id/switch_med_med"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -236,22 +228,9 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="text" />
-                </ViewSwitcher>
+                </TextSwitcher>
 
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/dos_instruction_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Dosage Instructions"
-                    android:textStyle="normal|bold" />
-
-                <ViewSwitcher
+                <TextSwitcher
                     android:id="@+id/switch_dos_med"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -267,11 +246,100 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="text" />
-                </ViewSwitcher>
+                </TextSwitcher>
 
             </TableRow>
 
         </TableLayout>
+
+        <TextView
+            android:id="@+id/med_history_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/med_table"
+            android:text="Medical History"
+            android:textSize="24sp"
+            android:textStyle="normal|bold" />
+
+        <TableLayout
+            android:id="@+id/med_history_table"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/med_history_header">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/med_alert_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Med Alert:" />
+
+                <TextView
+                    android:id="@+id/pre_ill_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Previous Illness:" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextSwitcher
+                    android:id="@+id/text_switcher_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/illness_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <EditText
+                        android:id="@+id/edit_illness_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName" />
+                </TextSwitcher>
+
+            </TableRow>
+
+        </TableLayout>
+
+        <ViewSwitcher
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/med_history_header"
+            android:layout_toEndOf="@+id/med_history_header"
+            android:layout_marginLeft="29dp"
+            android:layout_marginStart="29dp"
+            android:id="@+id/switcher_edit_button">
+
+            <Button
+                android:id="@+id/button_edit_id"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="@string/edit_button"
+                android:layout_above="@+id/second_row_id"
+                android:layout_toRightOf="@+id/med_history_header"
+                android:layout_toEndOf="@+id/med_history_header"
+                android:layout_marginLeft="138dp"
+                android:layout_marginStart="138dp"
+                android:layout_alignParentTop="true"
+                android:textSize="8sp" />
+
+            <Button
+                android:text="SAVE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/save_button_id" />
+        </ViewSwitcher>
 
     </RelativeLayout>
 </ScrollView>
