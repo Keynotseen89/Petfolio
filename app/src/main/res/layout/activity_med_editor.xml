@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MedHistoryActivity">
+
+    <!-- Overview category -->
+    <LinearLayout
+        android:id="@+id/container_date_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="horizontal">
+
+        <!-- Label -->
+        <TextView
+            style="@style/CategoryStyle"
+            android:paddingLeft="20dp"
+            android:text="Date Administered " />
+
+        <!-- Input fileds -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:paddingLeft="4dp">
+
+            <!-- Name of field -->
+            <EditText
+                android:id="@+id/date_admin_id"
+                style="@style/EditorFieldStyle"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/transparent"
+                android:hint="MM-DD-YYYY"
+                android:inputType="text" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Vaccine Information category -->
+    <LinearLayout
+        android:id="@+id/container_vaccin_info_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="horizontal">
+
+        <!-- Label -->
+        <TextView
+            style="@style/CategoryStyle"
+            android:paddingLeft="20dp"
+            android:text="Vaccine Info " />
+
+        <!-- Input fields -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:paddingLeft="4dp">
+
+            <!-- Name of field -->
+            <EditText
+                android:id="@+id/vaccin_info_id"
+                style="@style/EditorFieldStyle"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/transparent"
+                android:inputType="text" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Tag category -->
+    <LinearLayout
+        android:id="@+id/container_tag_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="horizontal">
+
+        <!-- Label -->
+        <TextView
+            style="@style/CategoryStyle"
+            android:paddingLeft="20dp"
+            android:text="Tag # " />
+
+        <!-- Input fields -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:paddingLeft="4dp">
+
+            <!-- Name of field -->
+            <EditText
+                android:id="@+id/tag_id"
+                style="@style/EditorFieldStyle"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/transparent"
+                android:inputType="text" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Date Revaccinated category -->
+    <LinearLayout
+        android:id="@+id/container_revaccinated_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="horizontal">
+
+        <!-- Label -->
+        <TextView
+            style="@style/CategoryStyle"
+            android:paddingLeft="20dp"
+            android:text="Vaccine Info " />
+
+        <!-- Input fields -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:paddingLeft="4dp">
+
+            <!-- Name of field -->
+            <EditText
+                android:id="@+id/revaccinated_id"
+                style="@style/EditorFieldStyle"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/transparent"
+                android:hint="MM-DD-YYYY"
+                android:inputType="text" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
