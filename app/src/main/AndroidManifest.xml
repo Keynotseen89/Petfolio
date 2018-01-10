@@ -19,9 +19,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AboutAppActivity"/>
+        <activity android:name=".AboutAppActivity" />
         <activity android:name=".MedHistoryActivity" />
+        <activity android:name=".VaccineEditorActivity"/>
         <activity android:name=".PetInfoActivity"></activity>
+
+        <provider
+            android:name=".data.VaccineProvider"
+            android:authorities="com.example.kench.petfolio"
+            android:exported="false" />
     </application>
 
 </manifest>
