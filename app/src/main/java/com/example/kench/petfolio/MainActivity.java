@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.Touch;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         imageView = (ImageView) findViewById(R.id.pet_image_id);
         frameLayout = (FrameLayout) findViewById(R.id.pet_frame_id);
-        Button editButton = (Button) findViewById(R.id.edit_id);
+        /*Button editButton = (Button) findViewById(R.id.edit_id);
 
 
         editButton.setOnClickListener(new View.OnClickListener() {
@@ -65,9 +68,22 @@ public class MainActivity extends AppCompatActivity {
                 });
                 //openGallery();
             }
-        });
+        });*/
 
     }//end of onCreate code
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // User clicks on a menu option in the app bar overflow menu
+        switch (item.getItemId()) {
+            case R.id.action_edit:
+                editPetName();
+                return true;
+            case R.id.action_save:
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     //Edit the name of owners Pet
     private void editPetName() {
@@ -79,6 +95,14 @@ public class MainActivity extends AppCompatActivity {
         EditText myEditText = (EditText) switcher.findViewById(R.id.hidden_edit_view);
         petNameView.setText(myEditText.getText());
 
+        frameLayout.setBackgroundColor(Color.CYAN);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                openGallery();
+            }
+        });
 
     }//end of editPetName code
 
@@ -99,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
 
         startActivityForResult(gallery, PICK_IMAGE);
     }//end of openGallery code
-
 
 
     @Override
@@ -124,6 +147,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }//end of ActivityResult code
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu options from the res/menu/menu_main.xml file.
+        // This adds menu item to the app bar
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
     //Opens MedHistoryActivity window in UI
     public void openMedHistory(View view) {
         Intent i = new Intent(this, MedHistoryActivity.class);
@@ -136,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(openPetInfo);
     }
 
-    public void openAboutApp(View view){
+    public void openAboutApp(View view) {
         Intent openAboutApp = new Intent(this, AboutAppActivity.class);
         startActivity(openAboutApp);
     }
