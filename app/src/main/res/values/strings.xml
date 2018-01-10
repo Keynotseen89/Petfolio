@@ -1,11 +1,34 @@
 <resources>
+    <!-- Application Title Name [CHAR = 20]  -->
     <string name="app_name">Petfolio</string>
+
+    <!-- Name of pet [CHAR = 20] -->
     <string name="pets_name">Pet Name</string>
+
+    <!-- menu drop list Edit name [CHAR = 20] -->
     <string name="edit_name">Edit Name</string>
+
+    <!-- edit button name [CHAR = 20] -->
     <string name="edit_button">Edit</string>
+
+    <!-- name of pet photo that need to be taken [CHAR = 20] -->
     <string name="profile_image">Pets Photo</string>
+
+    <!-- Scrapbook label text [CHAR = 20] -->
     <string name="scrap_book">Scrapbook</string>
+
+    <!-- Medical History text [CHAR = 20] -->
     <string name="med_history">Medical History</string>
+
+    <!-- Pet information text [CHAR = 20] -->
     <string name="pet_info">Pet information</string>
+
+    <!-- About application text [CHAR = 20] -->
     <string name="about_selection">about app</string>
+
+    <!-- Message to display when ListView is empty [CHAR = 30] -->
+    <string name="empty_message">Its a bit lonely here...</string>
+
+    <!-- Sub message to display when ListView is empty[CHAR = 30] -->
+    <string name="sub_empty_message">Get started by adding a few entry.</string>
 </resources>
