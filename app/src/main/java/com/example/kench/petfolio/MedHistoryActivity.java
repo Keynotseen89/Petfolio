@@ -1,15 +1,33 @@
 package com.example.kench.petfolio;
 
+import android.app.LoaderManager;
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.content.CursorLoader;
+import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
+import android.net.Uri;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextSwitcher;
-import android.widget.TextView;
-import android.widget.ViewSwitcher;
 
-public class MedHistoryActivity extends AppCompatActivity {
+
+import com.example.kench.petfolio.data.VaccineContract;
+import com.example.kench.petfolio.data.VaccineContract.VaccineEntry;
+
+public class MedHistoryActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+
+    private static final int VACCINE_LOADER = 0;
+
+    // Global CursorAdapter
+    VaccineCursorAdapter mCursorAdapter;
 
     //Button is used to edit Medical history of petfolio
     //final Button editButton = (Button) findViewById(R.id.button_edit_id);
@@ -17,87 +35,108 @@ public class MedHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_med_history);
+        setTitle("Vaccine Log");
 
-        //Button is used to edit Medical history of petfolio
-        // Button editButton = (Button) findViewById(R.id.button_edit_id);
-        final Button editButton = (Button) findViewById(R.id.button_edit_id);
-
-        editButton.setOnClickListener(new View.OnClickListener() {
+        //Setup floating Action Button
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view) {
-
-
-                editMedHistory();
-
-
+            public void onClick(View view){
+                Intent intent = new Intent(MedHistoryActivity.this, VaccineEditorActivity.class);
+                startActivity(intent);
             }
-        });//end of editButton
+        });
+        // Get ListView id populate
+        ListView petListView = (ListView) findViewById(R.id.list);
 
+        // Get emptyView id to populate
+        View emptyView = findViewById(R.id.empty_view);
+        petListView.setEmptyView(emptyView);
+
+        //Setup an a Adapter to create a list item for each row of inventory stock
+        mCursorAdapter = new VaccineCursorAdapter(this, null);
+        petListView.setAdapter(mCursorAdapter);
+
+        //Setup the item click listener
+        petListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+                Intent intent = new Intent(MedHistoryActivity.this, VaccineEditorActivity.class);
+                Uri currentVaccineUri = ContentUris.withAppendedId(VaccineEntry.CONTENT_URI, id);
+                intent.setData(currentVaccineUri);
+                startActivity(intent);
+            }
+        });
+        // Kick start eh loader to display on ListView
+        getLoaderManager().initLoader(VACCINE_LOADER, null, this);
 
     }//end of onCreate code
 
-    private void editMedHistory(){
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu options from the res/menu/menu_vaccine.xml item
+        getMenuInflater().inflate(R.menu.menu_vaccine, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // User click on a menu option in the app bar overflow menu
+        switch (item.getItemId()) {
+            case R.id.insert_dummy:
+                insertVaccineLog();
+                return true;
+            case R.id.delete_all:
+                deleteAll();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
-        //This is used to switch from text to edit text
-        TextSwitcher switcherDateAdm = (TextSwitcher) findViewById(R.id.switch_date_adm);
-        //Switches to next text
-        switcherDateAdm.showNext();
+    /**
+     * Helper method to insert dummy data into database
+     */
+    private void insertVaccineLog() {
+        //Create a ContentValue object where column names are key
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(VaccineEntry.COLUMN_VACCINE_DATE, "09-29-2016");
+        contentValues.put(VaccineEntry.COLUMN_VACCINE_INFO, "DHLPP/C 1");
+        contentValues.put(VaccineEntry.COLUMN_VACCINE_TAG, "N/A");
+        contentValues.put(VaccineEntry.COLUMN_VACCINE_REDATE, "10-13-2016");
 
-        TextView dateAdmText = (TextView) switcherDateAdm.findViewById(R.id.date_adm_text);
-        EditText editAdmDate = (EditText) switcherDateAdm.findViewById(R.id.edit_date_adm);
-        dateAdmText.setText(editAdmDate.getEditableText());
+        Uri newUri = getContentResolver().insert(VaccineEntry.CONTENT_URI, contentValues);
+    }
 
-        //Swtiches to Vac text edit
-        TextSwitcher switcherVac = (TextSwitcher) findViewById(R.id.switch_vac_info);
-        switcherVac.showNext();
-        TextView vacInfo = (TextView) switcherVac.findViewById(R.id.vac_info_text);
-        EditText editVacInfo = (EditText) switcherVac.findViewById(R.id.edit_vac_info);
-        vacInfo.setText(editVacInfo.getText());
+    private void deleteAll() {
+        int rowsDeleted = getContentResolver().delete(VaccineEntry.CONTENT_URI, null, null);
+        Log.v(" MedHistoryActivity ", rowsDeleted + " rows deleted from vaccineLog database");
+    }
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        String[] projection = {
+                VaccineEntry._ID,
+                VaccineEntry.COLUMN_VACCINE_DATE,
+                VaccineEntry.COLUMN_VACCINE_INFO
+        };
 
-        //Switches to Tag editor
-        TextSwitcher switcherTag = (TextSwitcher) findViewById(R.id.switch_tag);
-        switcherTag.showNext();
-        TextView tagNumber = (TextView) switcherTag.findViewById(R.id.tag_text);
-        EditText editTagNumber = (EditText) switcherTag.findViewById(R.id.edit_tag);
-        tagNumber.setText(editTagNumber.getText());
+        return new CursorLoader(this,
+                VaccineEntry.CONTENT_URI,
+                projection,
+                null,
+                null,
+                null);
+    }
 
-        //Switcher to Revaccination Date edit
-        TextSwitcher switcherReVac = (TextSwitcher) findViewById(R.id.switch_date_re);
-        switcherReVac.showNext();
-        TextView reVacDate = (TextView) switcherReVac.findViewById(R.id.date_vac_text);
-        EditText editReVacDate = (EditText) switcherReVac.findViewById(R.id.edit_date_re);
-        reVacDate.setText(editReVacDate.getText());
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mCursorAdapter.swapCursor(data);
+    }
 
-        //Switcher for medication Date
-        TextSwitcher switcherDateMed = (TextSwitcher) findViewById(R.id.switch_date_med);
-        switcherDateMed.showNext();
-        TextView dateMed = (TextView) switcherDateMed.findViewById(R.id.med_date_text);
-        EditText editDateMed = (EditText) switcherDateMed.findViewById(R.id.edit_med_date);
-        dateMed.setText(editDateMed.getText());
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mCursorAdapter.swapCursor(null);
+    }
 
-        //Switcher for type of Medication given to pet
-        TextSwitcher switcherMedMed = (TextSwitcher) findViewById(R.id.switch_med_med);
-        switcherMedMed.showNext();
-        TextView medTextView = (TextView) switcherMedMed.findViewById(R.id.medication_text);
-        EditText editMedText = (EditText) switcherMedMed.findViewById(R.id.edit_med_text);
-        medTextView.setText(editMedText.getText());
-
-        //Switcher for amount of doesage for Medication given to pet
-        TextSwitcher switcherDosMed = (TextSwitcher) findViewById(R.id.switch_dos_med);
-        switcherDosMed.showNext();
-        TextView doeMedTextView = (TextView) switcherDosMed.findViewById(R.id.dos_instruction_text);
-        EditText editDoeMedText = (EditText) switcherDosMed.findViewById(R.id.edit_dos_instruction);
-        doeMedTextView.setText(editDoeMedText.getText());
-        //TextSwithcer
-
-        TextSwitcher textSwitcher = (TextSwitcher) findViewById(R.id.text_switcher_id);
-        textSwitcher.showNext();
-        TextView textIllness = (TextView) textSwitcher.findViewById(R.id.illness_text);
-        EditText editIllnessText = (EditText) textSwitcher.findViewById(R.id.edit_illness_text);
-        textIllness.setText(editIllnessText.getText());
-
-
-    }//end of editMedHistory code
 }
