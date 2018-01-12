@@ -33,7 +33,6 @@
                 android:id="@+id/date_admin_id"
                 style="@style/EditorFieldStyle"
                 android:layout_marginRight="20dp"
-                android:background="@android:color/transparent"
                 android:hint="MM-DD-YYYY"
                 android:inputType="text" />
         </LinearLayout>
@@ -66,7 +65,6 @@
                 android:id="@+id/vaccin_info_id"
                 style="@style/EditorFieldStyle"
                 android:layout_marginRight="20dp"
-                android:background="@android:color/transparent"
                 android:inputType="text" />
         </LinearLayout>
     </LinearLayout>
@@ -98,7 +96,7 @@
                 android:id="@+id/tag_id"
                 style="@style/EditorFieldStyle"
                 android:layout_marginRight="20dp"
-                android:background="@android:color/transparent"
+                android:hint="N/A"
                 android:inputType="text" />
         </LinearLayout>
     </LinearLayout>
@@ -130,7 +128,6 @@
                 android:id="@+id/revaccinated_id"
                 style="@style/EditorFieldStyle"
                 android:layout_marginRight="20dp"
-                android:background="@android:color/transparent"
                 android:hint="MM-DD-YYYY"
                 android:inputType="text" />
         </LinearLayout>

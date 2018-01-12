@@ -35,7 +35,7 @@ public class VaccineDbHelper extends SQLiteOpenHelper {
                 + VaccineEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + VaccineEntry.COLUMN_VACCINE_DATE + " TEXT, "
                 + VaccineEntry.COLUMN_VACCINE_INFO + " TEXT, "
-                + VaccineEntry.COLUMN_VACCINE_TAG + " TEXT DEFAULT 'N/A', "
+                + VaccineEntry.COLUMN_VACCINE_TAG + " TEXT DEFAULT \"N/A\", "
                 + VaccineEntry.COLUMN_VACCINE_REDATE + " TEXT); ";
 
          //Execute the SQL statement
