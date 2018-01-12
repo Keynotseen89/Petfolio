@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 
+import com.example.kench.petfolio.VaccineEditorActivity;
 import com.example.kench.petfolio.data.VaccineContract.VaccineEntry;
 
 /**
@@ -168,8 +169,42 @@ public class VaccineProvider extends ContentProvider {
     }
 
     @Override
-    public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
-        return 0;
+    public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String selection, @Nullable String[] selectionArgs) {
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case VACCINE_LOG:
+                return updateVaccine(uri, contentValues, selection, selectionArgs);
+            case VACCINE_ID:
+                selection = VaccineEntry._ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                return updateVaccine(uri, contentValues, selection, selectionArgs);
+            default:
+                throw new IllegalArgumentException("Updated is not supported for " + uri);
+        }
+    }
+
+    private int updateVaccine(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        if (values.containsKey(VaccineEntry.COLUMN_VACCINE_DATE)) {
+            String dateValue = values.getAsString(VaccineEntry.COLUMN_VACCINE_DATE);
+            if (dateValue == null) {
+                throw new IllegalArgumentException("Date is required");
+            }
+        }
+        if (values.size() == 0) {
+            return 0;
+        }
+        // Otherwise, get write able database to update the data
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+
+        //Perform the update on the database and get the number of rows affected
+        int rowsUpdated = database.update(VaccineEntry.TABLE_NAME, values, selection, selectionArgs);
+
+        //If 1 or more rows were updated, then notify all listener that the data given URI has changed
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        return rowsUpdated;
     }
 
 }
