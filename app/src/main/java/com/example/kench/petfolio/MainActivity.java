@@ -2,27 +2,19 @@ package com.example.kench.petfolio;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
-import android.text.method.Touch;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
-
-import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 
@@ -49,26 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
         imageView = (ImageView) findViewById(R.id.pet_image_id);
         frameLayout = (FrameLayout) findViewById(R.id.pet_frame_id);
-        /*Button editButton = (Button) findViewById(R.id.edit_id);
-
-
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                editPetName();
-
-                frameLayout.setBackgroundColor(Color.CYAN);
-                imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        openGallery();
-                    }
-                });
-                //openGallery();
-            }
-        });*/
 
     }//end of onCreate code
 
@@ -157,8 +129,9 @@ public class MainActivity extends AppCompatActivity {
 
     //Opens MedHistoryActivity window in UI
     public void openMedHistory(View view) {
-        Intent i = new Intent(this, MedHistoryActivity.class);
-        startActivity(i);
+        //Intent intent = new Intent(this, MedHistoryActivity.class);
+        Intent intent = new Intent(this, MainMedLog.class);
+        startActivity(intent);
     }//end of medHistory code
 
     //Opend PetInfoActivity window in UI

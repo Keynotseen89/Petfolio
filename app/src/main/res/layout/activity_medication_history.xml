@@ -7,19 +7,22 @@
     tools:context="com.example.kench.petfolio.MedHistoryActivity">
 
     <ListView
-        android:id="@+id/list"
+        android:id="@+id/list_med"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
 
     <!-- Empty View for this list -->
     <RelativeLayout
-        android:id="@+id/empty_view"
+        android:id="@+id/empty_view_med"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
 
         <TextView
-            android:id="@+id/empty_title_text"
+            android:id="@+id/empty_title_med"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -28,27 +31,32 @@
             android:textAppearance="?android:textAppearance" />
 
         <TextView
-            android:id="@+id/empty_subtitle_text"
+            android:id="@+id/empty_subtitle_med"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/empty_title_text"
+            android:layout_below="@id/empty_title_med"
             android:layout_centerHorizontal="true"
             android:paddingTop="8dp"
             android:text="@string/sub_empty_message"
             android:textAppearance="?android:textAppearance" />
     </RelativeLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+    <!--<android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|end"
         android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="@dimen/fab_margin_right"
+        android:layout_marginRight="@dimen/fab_margin_right"
         android:clickable="true"
+        android:focusable="true"
         app:backgroundTint="@color/detailColorPrimary"
+        app:pressedTranslationZ="12dp"
         app:srcCompat="@android:drawable/ic_input_add" />
-
+    -->
 
 </RelativeLayout>

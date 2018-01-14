@@ -31,4 +31,26 @@
 
     <!-- Sub message to display when ListView is empty[CHAR = 30] -->
     <string name="sub_empty_message">Get started by adding a few entry.</string>
+
+    <!-- Message saved item [CHAR = 20] -->
+    <string name="save_successful">saved</string>
+
+    <!-- Messaged saved failed [CHAR = 20 ] -->
+    <string name="saved_failed">failed</string>
+
+    <!-- Message updated item [CHAR = 20] -->
+    <string name="update_successful">updated</string>
+
+    <!-- Messaged update failed [CHAR = 20 ] -->
+    <string name="update_failed">update failed</string>
+
+    <!-- Message delete item [CHAR = 20] -->
+    <string name="delete_successful">deleted</string>
+
+    <!-- Messaged delete failed [CHAR = 20 ] -->
+    <string name="delete_failed">delete failed</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

@@ -1,5 +1,10 @@
 package com.example.kench.petfolio;
 
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
 import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -14,12 +19,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.view.View;
 
 
-import com.example.kench.petfolio.data.VaccineContract;
 import com.example.kench.petfolio.data.VaccineContract.VaccineEntry;
 
 public class MedHistoryActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -29,16 +35,61 @@ public class MedHistoryActivity extends AppCompatActivity implements LoaderManag
     // Global CursorAdapter
     VaccineCursorAdapter mCursorAdapter;
 
-    //Button is used to edit Medical history of petfolio
-    //final Button editButton = (Button) findViewById(R.id.button_edit_id);
+    //Floating action button
+    FloatingActionButton fab, fab_med, fab_med_history;
+
+    //Animation for floating action button
+    Animation fabOpen, fabClose, fabRotateClockwise, fabRanticlockwise;
+
+    //Check if its open
+    boolean isOpen = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_med_history);
+        setContentView(R.layout.activity_vaccine_history);
         setTitle("Vaccine Log");
+       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         //Setup floating Action Button
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        fab_med = (FloatingActionButton) findViewById(R.id.floating_med);
+        fab_med_history = (FloatingActionButton) findViewById(R.id.floating_med_history);
+
+        //Setup animation
+        fabOpen = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
+        fabClose = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
+        fabRotateClockwise = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_clockwise);
+        fabRanticlockwise = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_anticlockwise);
+
+        /*fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isOpen) {
+
+                    fab_med.startAnimation(fabClose);
+                    fab_med_history.startAnimation(fabClose);
+                    fab.startAnimation(fabRanticlockwise);
+                    fab_med.setClickable(false);
+                    fab_med_history.setClickable(false);
+                    isOpen = false;
+                } else {
+                    fab_med.startAnimation(fabOpen);
+                    fab_med_history.startAnimation(fabOpen);
+                    fab.startAnimation(fabRotateClockwise);
+                    fab_med.setClickable(true);
+                    fab_med_history.setClickable(true);
+                    isOpen = true;
+                }
+            }
+        });*/
+        /*fab_med_history.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(MedHistoryActivity.this, VaccineEditorActivity.class);
+                startActivity(intent);
+            }
+        });*/
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){

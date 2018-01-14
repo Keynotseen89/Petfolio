@@ -8,22 +8,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.hardware.camera2.CaptureRequest;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.EditTextPreference;
-import android.provider.CalendarContract;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.text.method.KeyListener;
-import android.text.style.BackgroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -73,7 +67,9 @@ public class VaccineEditorActivity extends AppCompatActivity implements LoaderMa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_med_editor);
+        setContentView(R.layout.activity_vaccine_editor);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
         mCurrentVaccineUri = intent.getData();
@@ -89,10 +85,7 @@ public class VaccineEditorActivity extends AppCompatActivity implements LoaderMa
         mRevaccinatedText = (EditText) findViewById(R.id.revaccinated_id);
 
         editBackground(true);
-        /*(mDateText.getBackground().setAlpha(0);
-        mVaccineInfoText.getBackground().setAlpha(0);
-        mTagNumber.getBackground().setAlpha(0);
-        mRevaccinatedText.getBackground().setAlpha(0);*/
+
         //Set listener to text
         mDateText.setOnTouchListener(mTouchListener);
         mVaccineInfoText.setOnTouchListener(mTouchListener);
@@ -155,6 +148,9 @@ public class VaccineEditorActivity extends AppCompatActivity implements LoaderMa
             case R.id.action_save:
                 saveData();
                 finish();
+                return true;
+            case R.id.action_delete:
+                showDeleteConfirmationDialog();
                 return true;
             case android.R.id.home:
                 if (!mItemHasChanged) {
@@ -233,10 +229,10 @@ public class VaccineEditorActivity extends AppCompatActivity implements LoaderMa
 
             //Show a Toast message depending on whether or not the insertion failed
             if (newUri == null) {
-                Toast.makeText(this, "Insertion Failed",
+                Toast.makeText(this,getText(R.string.saved_failed),
                         Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "Insertion successed",
+                Toast.makeText(this, getText(R.string.save_successful),
                         Toast.LENGTH_SHORT).show();
             }
         } else {
@@ -245,10 +241,10 @@ public class VaccineEditorActivity extends AppCompatActivity implements LoaderMa
 
             //Show a toast message depending whether or not the update was successful
             if (rowsAffected == 0) {
-                Toast.makeText(this, "Update failed",
+                Toast.makeText(this, getText(R.string.update_failed),
                         Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "Update successed",
+                Toast.makeText(this, getText(R.string.update_successful),
                         Toast.LENGTH_SHORT).show();
             }
 
@@ -260,6 +256,7 @@ public class VaccineEditorActivity extends AppCompatActivity implements LoaderMa
      * editDate used to edit existing data entry
      */
     private void editData() {
+        setTitle("Editing");
         editButtonClick = true;
         editBackground(false);
 
@@ -311,6 +308,50 @@ public class VaccineEditorActivity extends AppCompatActivity implements LoaderMa
         alertDialog.show();
     }
 
+    /**
+     * Prompt the user to confirm that they want to delete this data.
+     */
+    private void showDeleteConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to delete this");
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                deleteData();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        //Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    /**
+     * Perform the delete of the data
+     */
+    private void deleteData() {
+        if (mCurrentVaccineUri != null) {
+            int rowsDeleted = getContentResolver().delete(mCurrentVaccineUri, null, null);
+
+            if (rowsDeleted == 0) {
+                Toast.makeText(this, getText(R.string.delete_failed),
+                        Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, getText(R.string.delete_successful),
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+        //Close the activity
+        finish();
+    }
     /*@Override
     public boolean onPrepareOptionsMenu(Menu menu){
         super.onPrepareOptionsMenu(menu);

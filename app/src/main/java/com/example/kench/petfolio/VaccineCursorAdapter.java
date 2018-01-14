@@ -18,6 +18,7 @@ public class VaccineCursorAdapter extends CursorAdapter {
 
     public VaccineCursorAdapter(Context context, Cursor cursor){
         super(context, cursor, 0 /* flags */);
+
     }
 
     @Override
@@ -42,4 +43,5 @@ public class VaccineCursorAdapter extends CursorAdapter {
         dateTextView.setText(date);
         vaccTextView.setText(vaccineInfo);
     }
+
 }
