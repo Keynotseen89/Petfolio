@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
+import com.example.kench.petfolio.data.MedicationContract.MedicationEntry;
 import com.example.kench.petfolio.data.VaccineContract;
 
 import static com.example.kench.petfolio.R.color.colorAccent;
@@ -50,6 +51,7 @@ public class MainMedLog extends AppCompatActivity {
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
     private FloatingActionButton fab;
+    private boolean insertDummyDateTab = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +115,13 @@ public class MainMedLog extends AppCompatActivity {
                 if (tab.getPosition() == 0) {
                     Log.v("Tab 1", "Use new Fab function here.");
                     fab.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+                    fab.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(MainMedLog.this, VaccineEditorActivity.class);
+                            startActivity(intent);
+                        }
+                    });
                     //fab.setBackgroundTintList(ColorStateList.valueOf(fab.getColor()));
                 } else if (tab.getPosition() == 1) {
                     Log.v("Tab 2", "Use new Fab function here.");
@@ -128,6 +137,7 @@ public class MainMedLog extends AppCompatActivity {
 
                         }
                     });
+                    insertDummyDateTab = true;
                 }
 
             }
@@ -178,8 +188,15 @@ public class MainMedLog extends AppCompatActivity {
         //}
         switch (item.getItemId()) {
             case R.id.insert_dummy:
+                /*if(insertDummyDateTab == false){
+                    insertVaccineLog();
+                }else{
+                    insertDummyDataMed();
+                }*/
+
                 //Log.v("VaccineHistoryFragment.class", "Insert");
                 insertVaccineLog();
+
                 return true;
             case R.id.delete_all:
                 deleteAll();
@@ -188,6 +205,16 @@ public class MainMedLog extends AppCompatActivity {
         //return super.onOptionsItemSelected(item);
         return super.onOptionsItemSelected(item);
     }
+
+    /*private void insertDummyDataMed() {
+        //Create a ContentValue object where column names are key
+        ContentValues values = new ContentValues();
+        values.put(MedicationEntry.COLUMN_MED_DATE, "02-01-2018");
+        values.put(MedicationEntry.COLUMN_MED_MEDICATION, "Unknown");
+        values.put(MedicationEntry.COLUMN_MED_DOSAGE, "10mg");
+
+        Uri newUriTemp = getContentResolver().insert(MedicationEntry.CONTENT_URI, values);
+    }*/
 
     /**
      * Helper method to insert dummy data into database

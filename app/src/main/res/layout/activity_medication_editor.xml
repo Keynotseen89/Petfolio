@@ -7,6 +7,14 @@
     tools:context=".MedHistoryFragment">
 
     <!-- Overview category -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_med"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+    <!-- Overview category -->
     <LinearLayout
         android:id="@+id/container_date_id"
         android:layout_width="match_parent"
@@ -30,7 +38,7 @@
 
             <!-- Name of field -->
             <EditText
-                android:id="@+id/date_admin_id"
+                android:id="@+id/date_med_id"
                 style="@style/EditorFieldStyle"
                 android:layout_marginRight="20dp"
                 android:hint="MM-DD-YYYY"
@@ -62,7 +70,7 @@
 
             <!-- Name of field -->
             <EditText
-                android:id="@+id/vaccin_info_id"
+                android:id="@+id/medication_id"
                 style="@style/EditorFieldStyle"
                 android:layout_marginRight="20dp"
                 android:inputType="text" />
@@ -93,7 +101,7 @@
 
             <!-- Name of field -->
             <EditText
-                android:id="@+id/tag_id"
+                android:id="@+id/dossage_id"
                 style="@style/EditorFieldStyle"
                 android:layout_marginRight="20dp"
                 android:hint="N/A"

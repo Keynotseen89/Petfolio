@@ -19,9 +19,9 @@ import com.example.kench.petfolio.data.MedicationContract.MedicationEntry;
 
 public class MedicationProvider extends ContentProvider {
 
-    private static final int MEDICATION_LOG = 300;
+    private static final int MEDICATION_LOG = 400;
 
-    private static final int MEDICATION_ID = 301;
+    private static final int MEDICATION_ID = 401;
 
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
@@ -40,12 +40,18 @@ public class MedicationProvider extends ContentProvider {
         return true;
     }
 
+
+    /**
+     * Perform the query for the given URI. Use the given projection, selection, selection arguments, and sort order.
+     */
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         SQLiteDatabase database = mDbHelper.getReadableDatabase();
 
+        // Object of cursor to be used
         Cursor cursor;
 
+        // Uri assigned to matcher to use with switcher statement
         int match = sUriMatcher.match(uri);
 
         switch (match) {
@@ -59,7 +65,7 @@ public class MedicationProvider extends ContentProvider {
                         sortOrder);
                 break;
             case MEDICATION_ID:
-                selection = MedicationEntry._ID + "=?";
+                selection = MedicationEntry.MED_ID + " =?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 cursor = database.query(MedicationEntry.TABLE_NAME,
                         projection,
@@ -95,7 +101,7 @@ public class MedicationProvider extends ContentProvider {
         long id = database.insert(MedicationEntry.TABLE_NAME, null, contentValues);
 
         // If the ID is -1, then insertion failed. Log an error and return null
-        if(id == -1){
+        if (id == -1) {
             Log.e(LOG_TAG, "Failed to insert new row for " + uri);
             return null;
         }
@@ -113,12 +119,12 @@ public class MedicationProvider extends ContentProvider {
         final int match = sUriMatcher.match(uri);
         switch (match) {
             case MEDICATION_LOG:
-                rowsDeleted = database.delete(VaccineContract.VaccineEntry.TABLE_NAME, selection, selectionArgs);
+                rowsDeleted = database.delete(MedicationEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             case MEDICATION_ID:
-                selection = VaccineContract.VaccineEntry._ID + "=?";
+                selection = MedicationEntry.MED_ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
-                rowsDeleted = database.delete(VaccineContract.VaccineEntry.TABLE_NAME, selection, selectionArgs);
+                rowsDeleted = database.delete(MedicationEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
                 throw new IllegalArgumentException("Deletion is not support for " + uri);
@@ -134,7 +140,7 @@ public class MedicationProvider extends ContentProvider {
             case MEDICATION_LOG:
                 return updateMedication(uri, contentValues, selection, selectionArgs);
             case MEDICATION_ID:
-                selection = VaccineContract.VaccineEntry._ID + "=?";
+                selection = MedicationEntry.MED_ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 return updateMedication(uri, contentValues, selection, selectionArgs);
             default:
@@ -143,13 +149,13 @@ public class MedicationProvider extends ContentProvider {
     }
 
     private int updateMedication(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
-        if(contentValues.containsKey(MedicationEntry.COLUMN_MED_DATE)){
+        if (contentValues.containsKey(MedicationEntry.COLUMN_MED_DATE)) {
             String dataValue = contentValues.getAsString(MedicationEntry.COLUMN_MED_DATE);
-            if(dataValue == null){
+            if (dataValue == null) {
                 throw new IllegalArgumentException("Date is required");
             }
         }
-        if (contentValues.size() == 0){
+        if (contentValues.size() == 0) {
             return 0;
         }
 
@@ -160,7 +166,7 @@ public class MedicationProvider extends ContentProvider {
         int rowsUpdated = database.update(MedicationEntry.TABLE_NAME, contentValues, selection, selectionArgs);
 
         // if 1 or more rows were updated, notify all the listener
-        if(rowsUpdated != 0){
+        if (rowsUpdated != 0) {
             getContext().getContentResolver().notifyChange(uri, null);
         }
 
@@ -178,7 +184,7 @@ public class MedicationProvider extends ContentProvider {
             case MEDICATION_ID:
                 return MedicationEntry.MED_CONTENT_ITEM_TYPE;
             default:
-                throw new IllegalArgumentException("Unknown URI " + uri + " with matche " + match);
+                throw new IllegalArgumentException("Unknown URI " + uri + " with match " + match);
         }
     }
 }

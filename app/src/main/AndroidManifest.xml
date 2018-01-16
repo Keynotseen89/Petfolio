@@ -52,12 +52,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".MainMedLog"
-                  android:parentActivityName=".MainActivity"/>
-        <activity android:name=".MedEditorActivity"
-                  android:parentActivityName=".MainMedLog"/>
+        <activity
+            android:name=".MainMedLog"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".MedEditorActivity"
+            android:parentActivityName=".MainMedLog" />
+
         <provider
             android:name=".data.VaccineProvider"
+            android:authorities="com.example.kench.petfolio"
+            android:exported="false" />
+        <provider
+            android:name=".data.MedicationProvider"
             android:authorities="com.example.kench.petfolio"
             android:exported="false" />
     </application>

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
+import com.example.kench.petfolio.data.MedicationContract.MedicationEntry;
 import com.example.kench.petfolio.data.VaccineContract.VaccineEntry;
 
 /**
@@ -16,7 +17,7 @@ import com.example.kench.petfolio.data.VaccineContract.VaccineEntry;
 
 public class VaccineCursorAdapter extends CursorAdapter {
 
-    public VaccineCursorAdapter(Context context, Cursor cursor){
+    public VaccineCursorAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0 /* flags */);
 
     }
@@ -32,6 +33,7 @@ public class VaccineCursorAdapter extends CursorAdapter {
         TextView dateTextView = (TextView) view.findViewById(R.id.date_id);
         TextView vaccTextView = (TextView) view.findViewById(R.id.vaccine_info_id);
 
+
         //Find the columns of data that we're interested in
         int dateColumnIndex = cursor.getColumnIndex(VaccineEntry.COLUMN_VACCINE_DATE);
         int vacColumnIndex = cursor.getColumnIndex(VaccineEntry.COLUMN_VACCINE_INFO);
@@ -42,6 +44,7 @@ public class VaccineCursorAdapter extends CursorAdapter {
 
         dateTextView.setText(date);
         vaccTextView.setText(vaccineInfo);
+
     }
 
 }
