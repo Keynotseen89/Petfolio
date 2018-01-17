@@ -63,10 +63,6 @@
             android:name=".data.VaccineProvider"
             android:authorities="com.example.kench.petfolio"
             android:exported="false" />
-        <provider
-            android:name=".data.MedicationProvider"
-            android:authorities="com.example.kench.petfolio"
-            android:exported="false" />
     </application>
 
 </manifest>
