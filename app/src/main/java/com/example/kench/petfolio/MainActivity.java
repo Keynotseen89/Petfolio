@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import com.example.kench.petfolio.data.DbHelper;
+
 import java.io.ByteArrayOutputStream;
 
 

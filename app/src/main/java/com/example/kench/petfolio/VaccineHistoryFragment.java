@@ -71,7 +71,7 @@ public class VaccineHistoryFragment extends Fragment implements LoaderManager.Lo
                 startActivity(intent);
             }
         });
-        getLoaderManager().initLoader(0, null, this);
+       // getLoaderManager().initLoader(VACCINE_LOADER, null, this);
         return view;
     }
 
@@ -79,7 +79,7 @@ public class VaccineHistoryFragment extends Fragment implements LoaderManager.Lo
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        getLoaderManager().initLoader(0, null, this);
+        getLoaderManager().initLoader(VACCINE_LOADER, null, this);
     }
 
     /*@Override

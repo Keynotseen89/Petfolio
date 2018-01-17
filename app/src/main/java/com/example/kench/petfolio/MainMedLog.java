@@ -23,7 +23,6 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
-import com.example.kench.petfolio.data.MedicationContract.MedicationEntry;
 import com.example.kench.petfolio.data.VaccineContract;
 
 import static com.example.kench.petfolio.R.color.colorAccent;
@@ -122,6 +121,7 @@ public class MainMedLog extends AppCompatActivity {
                             startActivity(intent);
                         }
                     });
+                    insertDummyDateTab = false;
                     //fab.setBackgroundTintList(ColorStateList.valueOf(fab.getColor()));
                 } else if (tab.getPosition() == 1) {
                     Log.v("Tab 2", "Use new Fab function here.");
@@ -164,7 +164,6 @@ public class MainMedLog extends AppCompatActivity {
 
             }
         });*/
-
     }
 
 
@@ -188,14 +187,14 @@ public class MainMedLog extends AppCompatActivity {
         //}
         switch (item.getItemId()) {
             case R.id.insert_dummy:
-                /*if(insertDummyDateTab == false){
+                if(insertDummyDateTab == false){
                     insertVaccineLog();
                 }else{
                     insertDummyDataMed();
-                }*/
+                }
 
                 //Log.v("VaccineHistoryFragment.class", "Insert");
-                insertVaccineLog();
+                //insertVaccineLog();
 
                 return true;
             case R.id.delete_all:
@@ -206,15 +205,15 @@ public class MainMedLog extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*private void insertDummyDataMed() {
+    private void insertDummyDataMed() {
         //Create a ContentValue object where column names are key
         ContentValues values = new ContentValues();
-        values.put(MedicationEntry.COLUMN_MED_DATE, "02-01-2018");
-        values.put(MedicationEntry.COLUMN_MED_MEDICATION, "Unknown");
-        values.put(MedicationEntry.COLUMN_MED_DOSAGE, "10mg");
+        values.put(VaccineContract.VaccineEntry.COLUMN_MED_DATE, "02-01-2018");
+        values.put(VaccineContract.VaccineEntry.COLUMN_MED_MEDICATION, "Unknown");
+        values.put(VaccineContract.VaccineEntry.COLUMN_MED_DOSAGE, "10mg");
 
-        Uri newUriTemp = getContentResolver().insert(MedicationEntry.CONTENT_URI, values);
-    }*/
+        Uri newUri = getContentResolver().insert(VaccineContract.VaccineEntry.MED_CONTENT_URI, values);
+    }
 
     /**
      * Helper method to insert dummy data into database

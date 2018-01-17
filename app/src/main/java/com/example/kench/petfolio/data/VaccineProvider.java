@@ -3,6 +3,7 @@ package com.example.kench.petfolio.data;
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -22,11 +23,13 @@ public class VaccineProvider extends ContentProvider {
      * URI matcher code for the content URI for the vaccineLog table
      */
     private static final int VACCINE_LOG = 200;
+    private static final int MEDICATION_LOG = 300;
 
     /**
      * URI matcher code for the content URI for a single item vaccineLog table
      */
     private static final int VACCINE_ID = 201;
+    private static final int MEDICATION_ID = 301;
 
     /**
      * UriMatcher object to match a content URI to a corresponding code.
@@ -36,8 +39,11 @@ public class VaccineProvider extends ContentProvider {
     static {
         // Used to obtain all the data in the table
         sUriMatcher.addURI(VaccineContract.CONTENT_AUTHORITY, VaccineContract.PATH_VACCINE, VACCINE_LOG);
+        sUriMatcher.addURI(VaccineContract.CONTENT_AUTHORITY, VaccineContract.PATH_MEDICATION, MEDICATION_LOG);
         // Used to obtain a single data in the table
         sUriMatcher.addURI(VaccineContract.CONTENT_AUTHORITY, VaccineContract.PATH_VACCINE + "/#", VACCINE_ID);
+        sUriMatcher.addURI(VaccineContract.CONTENT_AUTHORITY, VaccineContract.PATH_MEDICATION + "/#", MEDICATION_ID);
+
     }
 
     /**
@@ -83,10 +89,30 @@ public class VaccineProvider extends ContentProvider {
                         null,
                         sortOrder);
                 break;
+            case MEDICATION_LOG:
+                cursor = database.query(VaccineEntry.MED_TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
             case VACCINE_ID:
                 selection = VaccineEntry._ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 cursor = database.query(VaccineEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
+            case MEDICATION_ID:
+                selection = VaccineEntry.MED_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                cursor = database.query(VaccineEntry.MED_TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -109,8 +135,12 @@ public class VaccineProvider extends ContentProvider {
         switch (match) {
             case VACCINE_LOG:
                 return VaccineEntry.CONTENT_LIST_TYPE;
+            case MEDICATION_LOG:
+                return VaccineEntry.MED_CONTENT_LIST_TYPE;
             case VACCINE_ID:
                 return VaccineEntry.CONTENT_ITEM_TYPE;
+            case MEDICATION_ID:
+                return VaccineEntry.MED_CONTENT_ITEM_TYPE;
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri + " with match " + match);
         }
@@ -122,6 +152,8 @@ public class VaccineProvider extends ContentProvider {
         switch (match) {
             case VACCINE_LOG:
                 return insertVaccineInfo(uri, contentValues);
+            case MEDICATION_LOG:
+                return insertMedicationInfo(uri, contentValues);
             default:
                 throw new IllegalArgumentException("Insertion is not supported for " + uri);
         }
@@ -142,6 +174,19 @@ public class VaccineProvider extends ContentProvider {
         return ContentUris.withAppendedId(uri, id);
     }
 
+    private Uri insertMedicationInfo(Uri uri, ContentValues contentValues) {
+        //Get Writeable database
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+
+        long id = database.insert(VaccineEntry.MED_TABLE_NAME, null, contentValues);
+
+        if (id == -1) {
+            Log.e(LOG_TAG, "Failed to insert new row for " + uri);
+            return null;
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return ContentUris.withAppendedId(uri, id);
+    }
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
@@ -155,10 +200,18 @@ public class VaccineProvider extends ContentProvider {
             case VACCINE_LOG:
                 rowsDeleted = database.delete(VaccineEntry.TABLE_NAME, selection, selectionArgs);
                 break;
+            case MEDICATION_LOG:
+                rowsDeleted = database.delete(VaccineEntry.MED_TABLE_NAME, selection, selectionArgs);
+                break;
             case VACCINE_ID:
                 selection = VaccineEntry._ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 rowsDeleted = database.delete(VaccineEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            case MEDICATION_ID:
+                selection = VaccineEntry.MED_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                rowsDeleted = database.delete(VaccineEntry.MED_TABLE_NAME, selection, selectionArgs);
                 break;
             default:
                 throw new IllegalArgumentException("Deletion is not support for " + uri);
@@ -173,10 +226,16 @@ public class VaccineProvider extends ContentProvider {
         switch (match) {
             case VACCINE_LOG:
                 return updateVaccine(uri, contentValues, selection, selectionArgs);
+            case MEDICATION_LOG:
+                return updateMedication(uri, contentValues, selection, selectionArgs);
             case VACCINE_ID:
                 selection = VaccineEntry._ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 return updateVaccine(uri, contentValues, selection, selectionArgs);
+            case MEDICATION_ID:
+                selection = VaccineEntry.MED_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                return updateMedication(uri, contentValues, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException("Updated is not supported for " + uri);
         }
@@ -206,4 +265,13 @@ public class VaccineProvider extends ContentProvider {
         return rowsUpdated;
     }
 
+    private int updateMedication(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+
+        int rowsUpdated = database.update(VaccineEntry.MED_TABLE_NAME, contentValues, selection, selectionArgs);
+        if(rowsUpdated != 0){
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return rowsUpdated;
+    }
 }
