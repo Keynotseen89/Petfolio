@@ -138,7 +138,8 @@ public class MainActivity extends AppCompatActivity {
 
     //Opend PetInfoActivity window in UI
     public void openPetInfo(View view) {
-        Intent openPetInfo = new Intent(this, PetInfoActivity.class);
+        //Intent openPetInfo = new Intent(this, PetInfoActivity.class);
+        Intent openPetInfo = new Intent(this, MainInformationLog.class);
         startActivity(openPetInfo);
     }
 
