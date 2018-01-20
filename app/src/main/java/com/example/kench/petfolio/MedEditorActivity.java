@@ -18,6 +18,8 @@ import android.text.TextUtils;
 import android.text.method.KeyListener;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -44,13 +46,13 @@ public class MedEditorActivity extends AppCompatActivity implements LoaderManage
 
     private boolean editMedButtonClick = false;
 
-   /* private View.OnTouchListener mMedTouchListener = new View.OnTouchListener() {
+    private View.OnTouchListener mMedTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
             mItemHasChanged = true;
             return false;
         }
-    };*/
+    };
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,9 +74,9 @@ public class MedEditorActivity extends AppCompatActivity implements LoaderManage
 
         editBackground(true);
 
-        //mDateMedText.setOnTouchListener(mMedTouchListener);
-        //mMedicationText.setOnTouchListener(mMedTouchListener);
-        //mDossageText.setOnTouchListener(mMedTouchListener);
+        mDateMedText.setOnTouchListener(mMedTouchListener);
+        mMedicationText.setOnTouchListener(mMedTouchListener);
+        mDossageText.setOnTouchListener(mMedTouchListener);
 
         mDateListener = mDateMedText.getKeyListener();
         mMedListener = mMedicationText.getKeyListener();
@@ -109,8 +111,10 @@ public class MedEditorActivity extends AppCompatActivity implements LoaderManage
                 return true;
             case R.id.action_save:
                 saveData();
+                finish();
                 return true;
             case R.id.action_delete:
+                showDeleteConfirmationDialog();
                 return true;
             case R.id.home:
                 if (!mItemHasChanged) {
@@ -128,6 +132,30 @@ public class MedEditorActivity extends AppCompatActivity implements LoaderManage
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        if (mCurrentMedUri == null) {
+            MenuItem menuItem = menu.findItem(R.id.action_delete);
+            menuItem.setVisible(false);
+            MenuItem menuItemEdit = menu.findItem(R.id.action_edit);
+            menuItemEdit.setVisible(false);
+        } else if (editMedButtonClick == false) {
+            MenuItem menuItem = menu.findItem(R.id.action_save);
+            menuItem.setVisible(false);
+            MenuItem menuDelete = menu.findItem(R.id.action_delete);
+            menuDelete.setVisible(false);
+        } else {
+            MenuItem menuItem = menu.findItem(R.id.action_save);
+            menuItem.setVisible(true);
+            MenuItem menuDelete = menu.findItem(R.id.action_delete);
+            menuDelete.setVisible(true);
+            MenuItem menuEdit = menu.findItem(R.id.action_edit);
+            menuEdit.setVisible(false);
+        }
+        return true;
     }
 
     private void showUnsavedChangesDialog(
@@ -311,6 +339,11 @@ public class MedEditorActivity extends AppCompatActivity implements LoaderManage
             mDateMedText.setText(date);
             mMedicationText.setText(medicationInfo);
             mDossageText.setText(dossage);
+
+            //Set TextField to none Editable
+            mDateMedText.setKeyListener(null);
+            mMedicationText.setKeyListener(null);
+            mDossageText.setKeyListener(null);
         }
     }
 
