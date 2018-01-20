@@ -59,6 +59,10 @@
             android:name=".MedEditorActivity"
             android:parentActivityName=".MainMedLog" />
 
+        <activity
+            android:name=".MainInformationLog"
+            android:parentActivityName=".MainActivity" />
+
         <provider
             android:name=".data.VaccineProvider"
             android:authorities="com.example.kench.petfolio"
