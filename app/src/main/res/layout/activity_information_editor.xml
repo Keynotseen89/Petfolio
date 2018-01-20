@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fillViewport="true"
+    tools:context=".InformationFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".InformationFragment">-->
+        <!-- Overview category -->
+        <!-- <android.support.v7.widget.Toolbar
+             android:id="@+id/toolbar_information"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:background="?attr/colorPrimary"
+             android:minHeight="?attr/actionBarSize"
+             android:theme="?attr/actionBarTheme" />-->
+        <!-- Overview category -->
+        <LinearLayout
+            android:id="@+id/container_date_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+
+            <!-- Label -->
+            <TextView
+                style="@style/CategoryStyle"
+                android:paddingLeft="20dp"
+                android:text="Pet Name " />
+
+            <!-- Input fileds -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:paddingLeft="4dp">
+
+                <!-- Name of field -->
+                <EditText
+                    android:id="@+id/pet_name_id"
+                    style="@style/EditorFieldStyle"
+                    android:layout_marginRight="20dp"
+                    android:inputType="text" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Vaccine Information category -->
+        <LinearLayout
+            android:id="@+id/container_info_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+
+            <!-- Label -->
+            <TextView
+                style="@style/CategoryStyle"
+                android:paddingLeft="20dp"
+                android:text="Age/DOB " />
+
+            <!-- Input fields -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:paddingLeft="4dp">
+
+                <!-- Name of field -->
+                <EditText
+                    android:id="@+id/age_dob_id"
+                    style="@style/EditorFieldStyle"
+                    android:layout_marginRight="20dp"
+                    android:inputType="text" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Tag category -->
+        <LinearLayout
+            android:id="@+id/container_tag_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+
+            <!-- Label -->
+            <TextView
+                style="@style/CategoryStyle"
+                android:paddingLeft="20dp"
+                android:text="Breed" />
+
+            <!-- Input fields -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:paddingLeft="4dp">
+
+                <!-- Name of field -->
+                <EditText
+                    android:id="@+id/breed_id"
+                    style="@style/EditorFieldStyle"
+                    android:layout_marginRight="20dp"
+                    android:hint="Unknown"
+                    android:inputType="text" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Microship category -->
+        <LinearLayout
+            android:id="@+id/container_microship_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+
+            <!-- Label -->
+            <TextView
+                style="@style/CategoryStyle"
+                android:paddingLeft="20dp"
+                android:text="Microship #" />
+
+            <!-- Input fields -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:paddingLeft="4dp">
+
+                <!-- Name of field -->
+                <EditText
+                    android:id="@+id/micro_ship_id"
+                    style="@style/EditorFieldStyle"
+                    android:layout_marginRight="20dp"
+                    android:hint="N/A"
+                    android:inputType="text" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Neutered/Spayed category -->
+        <LinearLayout
+            android:id="@+id/container_neutered_spayed_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+
+            <!-- Label -->
+            <TextView
+                style="@style/CategoryStyle"
+                android:paddingLeft="20dp"
+                android:text="Neutered/Spayed" />
+
+            <!-- Input fields -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:paddingLeft="4dp">
+
+                <!-- Name of field -->
+                <EditText
+                    android:id="@+id/spayed_id"
+                    style="@style/EditorFieldStyle"
+                    android:layout_marginRight="20dp"
+                    android:hint="Yes/No"
+                    android:inputType="text" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- What Age category -->
+        <LinearLayout
+            android:id="@+id/container_whatAge_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+
+            <!-- Label -->
+            <TextView
+                style="@style/CategoryStyle"
+                android:paddingLeft="20dp"
+                android:text="WhatAge" />
+
+            <!-- Input fields -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:paddingLeft="4dp">
+
+                <!-- Name of field -->
+                <EditText
+                    android:id="@+id/fixed_age_id"
+                    style="@style/EditorFieldStyle"
+                    android:layout_marginRight="20dp"
+                    android:hint="Unknown"
+                    android:inputType="text" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- gender category -->
+        <LinearLayout
+            android:id="@+id/container_gender_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+
+            <!-- Label -->
+            <TextView
+                style="@style/CategoryStyle"
+                android:paddingLeft="20dp"
+                android:text="Gender" />
+
+            <!-- Input fields -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:paddingLeft="4dp">
+
+                <!-- Name of field -->
+                <EditText
+                    android:id="@+id/gender_id"
+                    style="@style/EditorFieldStyle"
+                    android:layout_marginRight="20dp"
+                    android:hint="Unknown"
+                    android:inputType="text" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- gender category -->
+        <LinearLayout
+            android:id="@+id/container_insurance_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+
+            <!-- Label -->
+            <TextView
+                style="@style/CategoryStyle"
+                android:paddingLeft="20dp"
+                android:text="insurance" />
+
+            <!-- Input fields -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:paddingLeft="4dp">
+
+                <!-- Name of field -->
+                <EditText
+                    android:id="@+id/insurance_id"
+                    style="@style/EditorFieldStyle"
+                    android:layout_marginRight="20dp"
+                    android:hint="Unknown"
+                    android:inputType="text" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
